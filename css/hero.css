@@ -1,0 +1,442 @@
+/* ==========================================================================
+   hero.css — Hero Section
+   Premier Schools Exhibition
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Hero Container
+   -------------------------------------------------------------------------- */
+.hero {
+  position: relative;
+  background-color: var(--color-primary-dark);
+  overflow: hidden;
+  min-height: 88vh;
+  display: flex;
+  align-items: stretch;
+}
+
+.hero__inner {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: var(--space-8);
+  padding-block: var(--space-16) var(--space-12);
+  width: 100%;
+  position: relative;
+  z-index: var(--z-base);
+}
+
+/* Background decoration */
+.hero__bg-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  pointer-events: none;
+  z-index: var(--z-below);
+}
+
+.hero__bg-glow--1 {
+  width: 600px;
+  height: 600px;
+  top: -120px;
+  right: -60px;
+  background: radial-gradient(circle, rgba(75 47 160 / 0.55) 0%, transparent 65%);
+}
+
+.hero__bg-glow--2 {
+  width: 400px;
+  height: 400px;
+  bottom: -80px;
+  left: 2%;
+  background: radial-gradient(circle, rgba(245 200 66 / 0.1) 0%, transparent 65%);
+}
+
+/* --------------------------------------------------------------------------
+   Left Column — Text Content
+   -------------------------------------------------------------------------- */
+.hero__content {
+  grid-column: 1;
+  padding-left: var(--container-pad);
+  max-width: 420px;
+}
+
+.hero__heading {
+  font-size: clamp(2rem, 3.6vw, 3.2rem);
+  font-weight: var(--font-weight-extrabold);
+  line-height: var(--line-height-tight);
+  color: var(--color-gold);
+  margin-bottom: var(--space-3);
+}
+
+.hero__sub-heading {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-white);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-8);
+}
+
+/* Event badge pill — venue + date in one capsule */
+.hero__event-badge {
+  display: inline-flex;
+  align-items: stretch;
+  background-color: rgba(255 255 255 / 0.12);
+  border: 1px solid rgba(255 255 255 / 0.22);
+  border-radius: var(--radius-full);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  overflow: hidden;
+  max-width: 380px;
+}
+
+.hero__event-venue,
+.hero__event-date {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--space-3) var(--space-5);
+  gap: var(--space-1);
+}
+
+.hero__event-name {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-white);
+  line-height: 1.4;
+}
+
+.hero__event-divider {
+  width: 1px;
+  background-color: rgba(255 255 255 / 0.25);
+  flex-shrink: 0;
+  align-self: stretch;
+  margin-block: var(--space-3);
+}
+
+.hero__event-date-main {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-extrabold);
+  color: var(--color-gold);
+  white-space: nowrap;
+}
+
+.hero__event-date-sub {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: rgba(255 255 255 / 0.75);
+  white-space: nowrap;
+}
+
+/* --------------------------------------------------------------------------
+   Center Column — Infinite Vertical Scrolling Gallery
+   -------------------------------------------------------------------------- */
+.hero__scroll-gallery {
+  grid-column: 2;
+  display: flex;
+  gap: var(--space-3);
+  height: 88vh;
+  overflow: hidden;
+  align-items: flex-start;
+  /* Top and bottom fade masks */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 12%,
+    black 88%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 12%,
+    black 88%,
+    transparent 100%
+  );
+}
+
+.hero__scroll-col {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: 150px;
+  overflow: hidden;
+}
+
+/* Column 2 starts offset (shifted down) for visual stagger */
+.hero__scroll-col--2 {
+  margin-top: -100px;
+}
+
+/* Column 3 starts at a different offset */
+.hero__scroll-col--3 {
+  margin-top: -50px;
+}
+
+.hero__scroll-track {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  will-change: transform;
+}
+
+/* --------------------------------------------------------------------------
+   Vertical scroll keyframes — bottom to top
+   -------------------------------------------------------------------------- */
+@keyframes scrollUp {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+
+@keyframes scrollUpOffset {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+
+@keyframes scrollUpSlow {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+
+.hero__scroll-track--up {
+  animation: scrollUp 22s linear infinite;
+}
+
+.hero__scroll-track--up-offset {
+  animation: scrollUpOffset 28s linear infinite;
+}
+
+.hero__scroll-track--up-slow {
+  animation: scrollUpSlow 25s linear infinite;
+}
+
+/* Pause on hover — respects prefers-reduced-motion too */
+.hero__scroll-gallery:hover .hero__scroll-track {
+  animation-play-state: paused;
+}
+
+/* --------------------------------------------------------------------------
+   Individual image items
+   -------------------------------------------------------------------------- */
+.hero__scroll-item {
+  flex-shrink: 0;
+  width: 150px;
+  height: 195px;
+  overflow: hidden;
+  border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+  transition: transform var(--transition-slow);
+}
+
+.hero__scroll-item:hover {
+  transform: scale(1.04);
+}
+
+.hero__scroll-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+  display: block;
+}
+
+/* --------------------------------------------------------------------------
+   Right Column — Enquiry Form
+   -------------------------------------------------------------------------- */
+.hero__form-panel {
+  grid-column: 3;
+  padding-right: var(--container-pad);
+  max-width: 340px;
+  width: 100%;
+  justify-self: end;
+}
+
+.hero__form-card {
+  background-color: rgba(255 255 255 / 0.08);
+  border: 1px solid rgba(255 255 255 / 0.15);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.hero__form-title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-white);
+  margin-bottom: var(--space-5);
+}
+
+.enquiry-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.enquiry-form__group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.enquiry-form__label {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: rgba(255 255 255 / 0.7);
+  letter-spacing: 0.04em;
+}
+
+.enquiry-form__input {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  background-color: rgba(255 255 255 / 0.1);
+  border: 1px solid rgba(255 255 255 / 0.18);
+  border-radius: var(--radius-md);
+  color: var(--color-white);
+  font-size: var(--font-size-sm);
+  transition: border-color var(--transition-base),
+              background-color var(--transition-base);
+}
+
+.enquiry-form__input::placeholder {
+  color: rgba(255 255 255 / 0.45);
+}
+
+.enquiry-form__input:focus {
+  outline: none;
+  border-color: var(--color-gold);
+  background-color: rgba(255 255 255 / 0.15);
+}
+
+.enquiry-form__submit {
+  margin-top: var(--space-2);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background-color: var(--color-white);
+  color: var(--color-primary-dark);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background-color var(--transition-base),
+              transform var(--transition-fast),
+              box-shadow var(--transition-base);
+}
+
+.enquiry-form__submit:hover {
+  background-color: var(--color-gold);
+  color: var(--color-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(245 200 66 / 0.35);
+}
+
+/* --------------------------------------------------------------------------
+   Reduced Motion — disable animations
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .hero__scroll-track {
+    animation: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+@media (max-width: 1100px) {
+  .hero__inner {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: var(--space-6);
+  }
+
+  .hero__content {
+    grid-column: 1;
+    grid-row: 1;
+    max-width: 100%;
+  }
+
+  .hero__form-panel {
+    grid-column: 2;
+    grid-row: 1;
+    max-width: 100%;
+    padding-right: var(--container-pad);
+    justify-self: stretch;
+  }
+
+  .hero__scroll-gallery {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    height: 40vh;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    min-height: auto;
+  }
+
+  .hero__inner {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    padding-block: var(--space-12) var(--space-10);
+    gap: var(--space-8);
+  }
+
+  .hero__content {
+    grid-column: 1;
+    grid-row: 1;
+    padding-left: 0;
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .hero__event-badge {
+    margin: 0 auto;
+  }
+
+  .hero__scroll-gallery {
+    grid-column: 1;
+    grid-row: 2;
+    height: 38vh;
+    justify-content: center;
+  }
+
+  .hero__scroll-col {
+    width: 120px;
+  }
+
+  .hero__scroll-item {
+    width: 120px;
+    height: 156px;
+  }
+
+  .hero__form-panel {
+    grid-column: 1;
+    grid-row: 3;
+    padding-right: 0;
+    max-width: 100%;
+    justify-self: stretch;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero__scroll-col {
+    width: 100px;
+  }
+
+  .hero__scroll-item {
+    width: 100px;
+    height: 130px;
+  }
+
+  .hero__heading {
+    font-size: var(--font-size-3xl);
+  }
+}

@@ -1,0 +1,96 @@
+/* ==========================================================================
+   stats.css — Stats / Trust Bar Section
+   Premier Schools Exhibition
+   ========================================================================== */
+
+.stats {
+  background-color: var(--color-white);
+  padding-block: var(--space-10);
+  border-bottom: 1px solid rgba(75 47 160 / 0.1);
+}
+
+.stats__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-6);
+  align-items: center;
+}
+
+/* Divider lines between items */
+.stats__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-3);
+  padding-inline: var(--space-4);
+  position: relative;
+}
+
+.stats__item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 10%;
+  height: 80%;
+  width: 1px;
+  background-color: rgba(75 47 160 / 0.15);
+}
+
+/* Laurel Icon (SVG inline) */
+.stats__icon {
+  width: 3.5rem;
+  height: 3.5rem;
+  color: var(--color-gold);
+  flex-shrink: 0;
+}
+
+.stats__number {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-extrabold);
+  color: var(--color-primary-dark);
+  line-height: 1;
+}
+
+.stats__label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-muted);
+  line-height: var(--line-height-tight);
+}
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .stats__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-8) var(--space-4);
+  }
+
+  .stats__item:nth-child(2)::after,
+  .stats__item:last-child::after {
+    display: none;
+  }
+
+  .stats__item:nth-child(1)::after,
+  .stats__item:nth-child(3)::after {
+    display: block;
+  }
+}
+
+@media (max-width: 480px) {
+  .stats__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6) var(--space-2);
+  }
+
+  .stats__icon {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+
+  .stats__number {
+    font-size: var(--font-size-xl);
+  }
+}

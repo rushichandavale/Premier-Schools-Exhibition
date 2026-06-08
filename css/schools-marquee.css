@@ -1,0 +1,141 @@
+/* ==========================================================================
+   schools-marquee.css — Participating Schools Logo Marquee
+   Premier Schools Exhibition
+   ========================================================================== */
+
+.schools-marquee {
+  background-color: var(--color-white);
+  padding-block: var(--space-12);
+  overflow: hidden;
+}
+
+.schools-marquee__title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-extrabold);
+  color: var(--color-text-dark);
+  text-align: center;
+  margin-bottom: var(--space-8);
+}
+
+/* Each row wrapper clips the scrolling track */
+.schools-marquee__row {
+  overflow: hidden;
+  position: relative;
+  /* Fade edges */
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 8%,
+    black 92%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 8%,
+    black 92%,
+    transparent 100%
+  );
+}
+
+.schools-marquee__row + .schools-marquee__row {
+  margin-top: var(--space-6);
+}
+
+/* The scrolling track — contains two copies of the logos for seamless loop */
+.schools-marquee__track {
+  display: flex;
+  width: max-content;
+  align-items: center;
+  gap: var(--space-8);
+  animation: marquee-ltr 30s linear infinite;
+}
+
+/* Row 2: reverse direction */
+.schools-marquee__row--reverse .schools-marquee__track {
+  animation-name: marquee-rtl;
+}
+
+/* Pause on hover or focus-within */
+.schools-marquee__row:hover .schools-marquee__track,
+.schools-marquee__row:focus-within .schools-marquee__track {
+  animation-play-state: paused;
+}
+
+/* Individual logo card */
+.schools-marquee__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: var(--space-3) var(--space-5);
+  background-color: var(--color-off-white);
+  border: 1px solid rgba(75 47 160 / 0.12);
+  border-radius: var(--radius-lg);
+  min-width: 9rem;
+  height: 5rem;
+  transition: box-shadow var(--transition-base),
+              transform var(--transition-base);
+}
+
+.schools-marquee__item:hover {
+  box-shadow: var(--shadow-card);
+  transform: translateY(-3px);
+}
+
+.schools-marquee__item:focus-within {
+  outline: 3px solid var(--color-gold);
+  outline-offset: 2px;
+}
+
+.schools-marquee__logo {
+  max-height: 3rem;
+  max-width: 7rem;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: grayscale(20%);
+  transition: filter var(--transition-base);
+}
+
+.schools-marquee__item:hover .schools-marquee__logo {
+  filter: grayscale(0%);
+}
+
+/* Fallback text logo when no image */
+.schools-marquee__logo-text {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary-dark);
+  text-align: center;
+  line-height: var(--line-height-tight);
+}
+
+/* --------------------------------------------------------------------------
+   Keyframe Animations
+   -------------------------------------------------------------------------- */
+@keyframes marquee-ltr {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-rtl {
+  0%   { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+/* Respect reduced motion — freeze the animation, still show logos */
+@media (prefers-reduced-motion: reduce) {
+  .schools-marquee__track {
+    animation: none;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+    gap: var(--space-4);
+  }
+
+  .schools-marquee__row {
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+}

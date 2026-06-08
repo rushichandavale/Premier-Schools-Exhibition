@@ -1,0 +1,188 @@
+/* ==========================================================================
+   highlights.css — Exhibition Highlights Slider Section
+   Premier Schools Exhibition
+   ========================================================================== */
+
+.highlights {
+  background-color: var(--color-primary-dark);
+  padding-block: var(--space-20);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Subtle background decoration */
+.highlights::before {
+  content: '';
+  position: absolute;
+  top: -120px;
+  right: -80px;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(75 47 160 / 0.3) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.highlights::after {
+  content: '';
+  position: absolute;
+  bottom: -80px;
+  left: -60px;
+  width: 350px;
+  height: 350px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245 200 66 / 0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.highlights__header {
+  text-align: center;
+  margin-bottom: var(--space-12);
+  position: relative;
+  z-index: var(--z-raised);
+}
+
+.highlights__title {
+  font-size: clamp(var(--font-size-2xl), 3.5vw, var(--font-size-3xl));
+  font-weight: var(--font-weight-extrabold);
+  color: var(--color-white);
+  line-height: var(--line-height-tight);
+}
+
+/* --------------------------------------------------------------------------
+   Slider Wrapper
+   -------------------------------------------------------------------------- */
+.highlights__slider {
+  position: relative;
+  overflow: hidden;
+  z-index: var(--z-raised);
+}
+
+.highlights__track {
+  display: flex;
+  gap: var(--space-5);
+  transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+  will-change: transform;
+}
+
+/* --------------------------------------------------------------------------
+   Highlight Card
+   -------------------------------------------------------------------------- */
+.highlight-card {
+  background-color: rgba(255 255 255 / 0.06);
+  border: 1px solid rgba(255 255 255 / 0.1);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  flex-shrink: 0;
+  /* Show 3.5 cards at a time on desktop — peek of next */
+  width: calc((100% - var(--space-5) * 3) / 3.5);
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  transition: background-color var(--transition-base),
+              border-color var(--transition-base),
+              transform var(--transition-base);
+}
+
+.highlight-card:hover {
+  background-color: rgba(255 255 255 / 0.1);
+  border-color: rgba(245 200 66 / 0.3);
+  transform: translateY(-4px);
+}
+
+.highlight-card__icon-wrap {
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--radius-lg);
+  background-color: rgba(245 200 66 / 0.12);
+  border: 1px solid rgba(245 200 66 / 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.highlight-card__icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--color-gold);
+}
+
+.highlight-card__title {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-white);
+  line-height: var(--line-height-tight);
+}
+
+.highlight-card__desc {
+  font-size: var(--font-size-sm);
+  color: rgba(255 255 255 / 0.65);
+  line-height: var(--line-height-loose);
+  flex: 1;
+}
+
+/* --------------------------------------------------------------------------
+   Slider Controls
+   -------------------------------------------------------------------------- */
+.highlights__controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  margin-top: var(--space-10);
+  position: relative;
+  z-index: var(--z-raised);
+}
+
+.highlights__nav-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--radius-full);
+  background-color: rgba(255 255 255 / 0.1);
+  border: 1.5px solid rgba(255 255 255 / 0.25);
+  color: var(--color-white);
+  transition: background-color var(--transition-base),
+              border-color var(--transition-base),
+              transform var(--transition-fast);
+}
+
+.highlights__nav-btn:hover {
+  background-color: var(--color-gold);
+  border-color: var(--color-gold);
+  color: var(--color-primary-dark);
+  transform: scale(1.1);
+}
+
+.highlights__nav-btn:disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.highlights__nav-btn svg {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .highlight-card {
+    width: calc((100% - var(--space-5) * 2) / 2.5);
+  }
+}
+
+@media (max-width: 640px) {
+  .highlight-card {
+    width: calc(100% - var(--space-5));
+  }
+
+  .highlights__track {
+    gap: var(--space-4);
+  }
+}
